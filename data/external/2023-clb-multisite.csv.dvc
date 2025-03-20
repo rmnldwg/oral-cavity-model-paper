@@ -1,0 +1,12 @@
+md5: ba66a7555440e903f10ac46cc2709609
+frozen: true
+deps:
+- path: 2023-clb-multisite/data.csv
+  repo:
+    url: https://github.com/rmnldwg/lydata
+    rev_lock: dc3cb79a8011d1a6f5a1807d96b8fe33478d9d12
+outs:
+- md5: 0ee586c452452c781e8b6c22b5e5ef71
+  size: 111721
+  hash: md5
+  path: 2023-clb-multisite.csv
