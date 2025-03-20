@@ -1,7 +1,12 @@
+vars:
+  # Replace this with `""` if you don't want to use uv.
+  # Using it is better for reproducibility.
+  - cmd-prefix: "uv run"
+
 stages:
   process-data:
     cmd: >
-      uv run python3.10 ocmscripts/dataset.py
+      ${cmd-prefix} python3.10 ocmscripts/dataset.py
       data/external/2023-clb-multisite.csv
       data/external/2023-isb-multisite.csv
       --output-path=data/processed/dataset.csv

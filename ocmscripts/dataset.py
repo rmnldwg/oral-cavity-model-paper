@@ -2,10 +2,8 @@ from pathlib import Path
 import warnings
 
 from loguru import logger
-import lydata
 from lydata import C
 from lydata.utils import infer_and_combine_levels
-from tqdm import tqdm
 import typer
 
 from ocmscripts.config import PROCESSED_DATA_DIR

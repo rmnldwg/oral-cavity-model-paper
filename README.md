@@ -7,35 +7,42 @@ Modelling the tumor progression based on lymphatic spread patterns of newly diag
 ## Project Organization
 
 ```txt
-├── LICENSE               <- Open-source license if one is chosen
-├── README.md             <- The top-level README for developers using this project.
+├── LICENSE               <- Open-source MIT license.
+├── README.md             <- Detailed information about the setup and experiments in this project.
 ├── data
-│   ├── external          <- Data from third party sources.
-│   └── processed         <- The final, canonical data sets for modeling.
+│   ├── external          <- Data from rmnldwg/lydata repo.
+│   └── processed         <- The final, canonical data set for modeling.
 │
-├── models                <- Trained and serialized models, model predictions, or model summaries
+├── models                <- Drawn samples and computed posteriors or risks.
 │
-├── pyproject.toml        <- Project configuration file with package metadata for 
-│                            ocmscripts and configuration for tools like black
+├── pyproject.toml        <- Project configuration file with package metadata for
+│                            ocmscripts and configuration for tools like ruff.
+│
+├── uv.lock               <- A cross-platform lockfile of the virtual Python environment created and
+|                            updated whenever a command is run via `uv run`.
+|
+├── dvc.yaml              <- Defines the data, sampling, and inference pipeline.
+|
+├── dvc.lock              <- A locked record of the state of the defined pipeline using MD5 file hashes.
 │
 ├── reports               <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   ├── figures           <- Generated graphics and figures to be used in reporting
-│   └── manuscript.qmd    <- The main manuscript of the publication
+│   ├── figures           <- Generated graphics and figures to be used in reporting.
+│   └── manuscript.qmd    <- The main manuscript of the publication.
 │
 └── ocmscripts            <- Source code for use in this project.
     │
-    ├── __init__.py           <- Makes ocmscripts a Python module
+    ├── __init__.py           <- Makes ocmscripts a Python module.
     │
-    ├── config.py             <- Store useful variables and configuration
+    ├── config.py             <- Store useful variables and configuration.
     │
-    ├── dataset.py            <- Scripts to download or generate data
+    ├── dataset.py            <- Scripts to concatenate and filter.
     │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py        <- Code to run model inference with trained models          
-    │   └── train.py          <- Code to train models
+    ├── modeling
+    │   ├── __init__.py
+    │   ├── predict.py        <- Code to run model inference with drawn samples.
+    │   └── train.py          <- Code to draw MCMC samples.
     │
-    └── plots.py              <- Code to create visualizations
+    └── plots.py              <- Code to create visualizations.
 ```
 
 --------
