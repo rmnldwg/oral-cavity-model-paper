@@ -16,6 +16,16 @@ classifiers = [
     "License :: OSI Approved :: MIT License"
 ]
 requires-python = "~=3.10"
+dependencies = [
+    "loguru",
+    "python-dotenv",
+    "tqdm",
+    "typer",
+    "dvc",
+    "lydata",
+    "lymph-model",
+    "lyscripts",
+]
 
 
 [tool.ruff]
