@@ -1,0 +1,14 @@
+stages:
+  process-data:
+    cmd: >
+      uv run python3.10 ocmscripts/dataset.py
+      data/external/2023-clb-multisite.csv
+      data/external/2023-isb-multisite.csv
+      --output-path=data/processed/dataset.csv
+    deps:
+      - uv.lock
+      - ocmscripts/dataset.py
+      - data/external/2023-clb-multisite.csv
+      - data/external/2023-isb-multisite.csv
+    outs:
+      - data/processed/dataset.csv

@@ -1,0 +1,27 @@
+schema: '2.0'
+stages:
+  process-data:
+    cmd: "uv run python3.10 ocmscripts/dataset.py data/external/2023-clb-multisite.csv
+      data/external/2023-isb-multisite.csv --output-path=data/processed/dataset.csv\n"
+    deps:
+    - path: data/external/2023-clb-multisite.csv
+      hash: md5
+      md5: 0ee586c452452c781e8b6c22b5e5ef71
+      size: 111721
+    - path: data/external/2023-isb-multisite.csv
+      hash: md5
+      md5: 24c25eedd6a832e595b12bd6b822a25c
+      size: 204462
+    - path: ocmscripts/dataset.py
+      hash: md5
+      md5: 44dd6d35583dc8e1d94b1e345e218fa0
+      size: 1578
+    - path: uv.lock
+      hash: md5
+      md5: caa99254d01aac53b81a8601b1933a74
+      size: 482234
+    outs:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: c7594f5e32db1539f4b496505dfef880
+      size: 278344

@@ -15,11 +15,13 @@ affiliations:
     name: University Hospital Zurich
     department: Radiation Oncology
     country: Switzerland
+    url: https://usz.ch
     ror: https://ror.org/01462r250
   - id: uzh
     name: University of Zurich
     department: Physics
     country: Switzerland
+    url: https://uzh.ch
     ror: https://ror.org/02crff812
 funding:
   - "UZH Clinical Research Priority Program 'Artificial Intelligence in Oncological Imaging'"
