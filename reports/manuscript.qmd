@@ -1,0 +1,34 @@
+---
+title: "Modelling lymphatic tumor progression for oral cavity squamous cell carcinomas."
+date: 2025-03-20
+authors:
+  - name: Roman Ludwig
+    id: rl
+    orcid: 0000-0001-9434-328X
+    email: roman.ludwig@usz.ch
+    corresponding: true
+    affiliation:
+      - ref: usz
+      - ref: uzh
+affiliations:
+  - id: usz
+    name: University Hospital Zurich
+    department: Radiation Oncology
+    country: Switzerland
+    ror: https://ror.org/01462r250
+  - id: uzh
+    name: University of Zurich
+    department: Physics
+    country: Switzerland
+    ror: https://ror.org/02crff812
+funding:
+  - "UZH Clinical Research Priority Program 'Artificial Intelligence in Oncological Imaging'"
+  - "Swiss Cancer Research Foundation grant KFS 5645-08-2022"
+license: "CC BY"
+abstract: >
+  Lorem ipsum...
+---
+
+## Introduction
+
+Lorem ipsum...
