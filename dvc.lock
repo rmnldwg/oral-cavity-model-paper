@@ -18,10 +18,75 @@ stages:
       size: 1542
     - path: uv.lock
       hash: md5
-      md5: caa99254d01aac53b81a8601b1933a74
-      size: 482234
+      md5: be09a3dabcdca323b8845f73206c36c3
+      size: 485169
     outs:
     - path: data/processed/dataset.csv
       hash: md5
       md5: c7594f5e32db1539f4b496505dfef880
       size: 278344
+  sampling:
+    cmd: "uv run python3.10 -m lyscripts sample --configs models/configs/simple.ly.yaml
+      --data.source data/processed/dataset.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: c7594f5e32db1539f4b496505dfef880
+      size: 278344
+    - path: uv.lock
+      hash: md5
+      md5: be09a3dabcdca323b8845f73206c36c3
+      size: 485169
+    params:
+      models/configs/simple.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - II
+            - III
+          lnl:
+            II:
+            - III
+            III: []
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        sampling:
+          storage_file: models/samples/simple.hdf5
+          history_file: models/histories/simple.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 50
+          num_steps: 100
+          inverse_temp: 1
+        version: 1
+    outs:
+    - path: models/histories/simple.csv
+      hash: md5
+      md5: c96ad6278d54694b444c58130d3994b6
+      size: 1654
+    - path: models/samples/simple.hdf5
+      hash: md5
+      md5: 2b331bee1e23dd8298d3e7252bbbace9
+      size: 14083648
