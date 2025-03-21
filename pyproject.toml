@@ -24,7 +24,7 @@ dependencies = [
     "dvc",
     "lydata",
     "lymph-model",
-    "lyscripts",
+    "lyscripts @ git+https://github.com/rmnldwg/lyscripts@6a7061903472921a359954d95de9204474220f32",
 ]
 
 
@@ -39,4 +39,7 @@ extend-select = ["I"]  # Add import sorting
 [tool.ruff.lint.isort]
 known-first-party = ["ocmscripts"]
 force-sort-within-sections = true
+
+[tool.uv.sources]
+lyscripts = { path = "../lyscripts" }
 

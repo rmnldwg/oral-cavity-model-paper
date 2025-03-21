@@ -17,3 +17,17 @@ stages:
       - data/external/2023-isb-multisite.csv
     outs:
       - data/processed/dataset.csv
+
+  sampling:
+    cmd: >
+      ${cmd-prefix} python3.10 -m lyscripts sample
+      --configs models/configs/simple.ly.yaml
+      --data.source data/processed/dataset.csv
+    deps:
+      - uv.lock
+      - data/processed/dataset.csv
+    params:
+      - models/configs/simple.ly.yaml:
+    outs:
+      - models/histories/simple.csv
+      - models/samples/simple.hdf5
