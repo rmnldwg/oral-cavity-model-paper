@@ -24,7 +24,7 @@ dependencies = [
     "dvc",
     "lydata",
     "lymph-model",
-    "lyscripts",
+    "lyscripts==1.0.0a7",
 ]
 
 
@@ -39,7 +39,4 @@ extend-select = ["I"]  # Add import sorting
 [tool.ruff.lint.isort]
 known-first-party = ["ocmscripts"]
 force-sort-within-sections = true
-
-[tool.uv.sources]
-lyscripts = { path = "../lyscripts", editable = true }
 

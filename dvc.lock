@@ -1,8 +1,8 @@
 schema: '2.0'
 stages:
   process-data:
-    cmd: "uv run python3.10 ocmscripts/dataset.py data/external/2023-clb-multisite.csv
-      data/external/2023-isb-multisite.csv --output-path=data/processed/dataset.csv\n"
+    cmd: "python ocmscripts/dataset.py data/external/2023-clb-multisite.csv data/external/2023-isb-multisite.csv
+      --output-path=data/processed/dataset.csv\n"
     deps:
     - path: data/external/2023-clb-multisite.csv
       hash: md5
@@ -18,17 +18,16 @@ stages:
       size: 1542
     - path: uv.lock
       hash: md5
-      md5: db577edecd3f5d1aef2c9ffb06b20bf2
-      size: 485167
+      md5: 8ff8a47fa4966657245e31136280cd53
+      size: 487389
     outs:
     - path: data/processed/dataset.csv
       hash: md5
       md5: c7594f5e32db1539f4b496505dfef880
       size: 278344
   sampling:
-    cmd: "uv run python3.10 -m lyscripts sample --configs models/configs/simple.ly.yaml
-      --configs models/configs/max_llh.ly.yaml --configs models/configs/sampling.ly.yaml
-      --data.source data/processed/dataset.csv\n"
+    cmd: "lyscripts sample --configs models/configs/simple.ly.yaml --configs models/configs/max_llh.ly.yaml
+      --configs models/configs/sampling.ly.yaml --data.source data/processed/dataset.csv\n"
     deps:
     - path: data/processed/dataset.csv
       hash: md5
@@ -36,8 +35,8 @@ stages:
       size: 278344
     - path: uv.lock
       hash: md5
-      md5: db577edecd3f5d1aef2c9ffb06b20bf2
-      size: 485167
+      md5: 8ff8a47fa4966657245e31136280cd53
+      size: 487389
     params:
       models/configs/max_llh.ly.yaml:
         modalities:
@@ -96,9 +95,9 @@ stages:
       md5: 2b331bee1e23dd8298d3e7252bbbace9
       size: 14083648
   risks:
-    cmd: "uv run python3.10 -m lyscripts compute risks --configs models/configs/simple.ly.yaml
-      --configs models/configs/sampling.ly.yaml --configs models/configs/scenarios.ly.yaml
-      --risks.file models/risks/simple.hdf5\n"
+    cmd: "lyscripts compute risks --configs models/configs/simple.ly.yaml --configs
+      models/configs/sampling.ly.yaml --configs models/configs/scenarios.ly.yaml --risks.file
+      models/risks/simple.hdf5\n"
     deps:
     - path: models/samples/simple.hdf5
       hash: md5
@@ -106,8 +105,8 @@ stages:
       size: 14083648
     - path: uv.lock
       hash: md5
-      md5: db577edecd3f5d1aef2c9ffb06b20bf2
-      size: 485167
+      md5: 8ff8a47fa4966657245e31136280cd53
+      size: 487389
     params:
       models/configs/sampling.ly.yaml:
         sampling:
@@ -184,9 +183,9 @@ stages:
       md5: 62ed35683465a451521f86a0b6d149ce
       size: 163600
   prevalences:
-    cmd: "uv run python3.10 -m lyscripts compute prevalences --configs models/configs/simple.ly.yaml
-      --configs models/configs/sampling.ly.yaml --configs models/configs/scenarios.ly.yaml
-      --prevalences.file models/prevalences/simple.hdf5 --data.source data/processed/dataset.csv\n"
+    cmd: "lyscripts compute prevalences --configs models/configs/simple.ly.yaml --configs
+      models/configs/sampling.ly.yaml --configs models/configs/scenarios.ly.yaml --prevalences.file
+      models/prevalences/simple.hdf5 --data.source data/processed/dataset.csv\n"
     deps:
     - path: data/processed/dataset.csv
       hash: md5
@@ -198,8 +197,8 @@ stages:
       size: 14083648
     - path: uv.lock
       hash: md5
-      md5: db577edecd3f5d1aef2c9ffb06b20bf2
-      size: 485167
+      md5: 8ff8a47fa4966657245e31136280cd53
+      size: 487389
     params:
       models/configs/sampling.ly.yaml:
         sampling:

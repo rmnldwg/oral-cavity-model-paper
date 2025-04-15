@@ -1,12 +1,7 @@
-vars:
-  # Replace this with `""` if you don't want to use uv.
-  # Using it is better for reproducibility.
-  - cmd-prefix: "uv run"
-
 stages:
   process-data:
     cmd: >
-      ${cmd-prefix} python3.10 ocmscripts/dataset.py
+      python ocmscripts/dataset.py
       data/external/2023-clb-multisite.csv
       data/external/2023-isb-multisite.csv
       --output-path=data/processed/dataset.csv
@@ -20,7 +15,7 @@ stages:
 
   sampling:
     cmd: >
-      ${cmd-prefix} python3.10 -m lyscripts sample
+      lyscripts sample
       --configs models/configs/simple.ly.yaml
       --configs models/configs/max_llh.ly.yaml
       --configs models/configs/sampling.ly.yaml
@@ -38,7 +33,7 @@ stages:
 
   prevalences:
     cmd: >
-      ${cmd-prefix} python3.10 -m lyscripts compute prevalences
+      lyscripts compute prevalences
       --configs models/configs/simple.ly.yaml
       --configs models/configs/sampling.ly.yaml
       --configs models/configs/scenarios.ly.yaml
@@ -57,7 +52,7 @@ stages:
 
   risks:
     cmd: >
-      ${cmd-prefix} python3.10 -m lyscripts compute risks
+      lyscripts compute risks
       --configs models/configs/simple.ly.yaml
       --configs models/configs/sampling.ly.yaml
       --configs models/configs/scenarios.ly.yaml
