@@ -18,8 +18,8 @@ stages:
       size: 1542
     - path: uv.lock
       hash: md5
-      md5: be09a3dabcdca323b8845f73206c36c3
-      size: 485169
+      md5: db577edecd3f5d1aef2c9ffb06b20bf2
+      size: 485167
     outs:
     - path: data/processed/dataset.csv
       hash: md5
@@ -27,6 +27,7 @@ stages:
       size: 278344
   sampling:
     cmd: "uv run python3.10 -m lyscripts sample --configs models/configs/simple.ly.yaml
+      --configs models/configs/max_llh.ly.yaml --configs models/configs/sampling.ly.yaml
       --data.source data/processed/dataset.csv\n"
     deps:
     - path: data/processed/dataset.csv
@@ -35,9 +36,30 @@ stages:
       size: 278344
     - path: uv.lock
       hash: md5
-      md5: be09a3dabcdca323b8845f73206c36c3
-      size: 485169
+      md5: db577edecd3f5d1aef2c9ffb06b20bf2
+      size: 485167
     params:
+      models/configs/max_llh.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        version: 1
+      models/configs/sampling.ly.yaml:
+        sampling:
+          storage_file: models/samples/simple.hdf5
+          history_file: models/histories/simple.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 50
+          num_steps: 100
+          inverse_temp: 1
+        version: 1
       models/configs/simple.ly.yaml:
         distributions:
           early:
@@ -59,15 +81,35 @@ stages:
             II:
             - III
             III: []
-        modalities:
-          max_llh:
-            spec: 1.0
-            sens: 1.0
-            kind: pathological
         model:
           class_name: Unilateral
           constructor: binary
           max_time: 10
+        version: 1
+    outs:
+    - path: models/histories/simple.csv
+      hash: md5
+      md5: c96ad6278d54694b444c58130d3994b6
+      size: 1654
+    - path: models/samples/simple.hdf5
+      hash: md5
+      md5: 2b331bee1e23dd8298d3e7252bbbace9
+      size: 14083648
+  risks:
+    cmd: "uv run python3.10 -m lyscripts compute risks --configs models/configs/simple.ly.yaml
+      --configs models/configs/sampling.ly.yaml --configs models/configs/scenarios.ly.yaml
+      --risks.file models/risks/simple.hdf5\n"
+    deps:
+    - path: models/samples/simple.hdf5
+      hash: md5
+      md5: 2b331bee1e23dd8298d3e7252bbbace9
+      size: 14083648
+    - path: uv.lock
+      hash: md5
+      md5: db577edecd3f5d1aef2c9ffb06b20bf2
+      size: 485167
+    params:
+      models/configs/sampling.ly.yaml:
         sampling:
           storage_file: models/samples/simple.hdf5
           history_file: models/histories/simple.csv
@@ -81,12 +123,155 @@ stages:
           num_steps: 100
           inverse_temp: 1
         version: 1
+      models/configs/scenarios.ly.yaml:
+        modalities:
+          CT:
+            spec: 0.8
+            sens: 0.8
+        scenarios:
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                II: healthy
+                III: healthy
+          involvement:
+            ipsi:
+              III: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                II: involved
+                III: healthy
+          involvement:
+            ipsi:
+              III: involved
+        version: 1
+      models/configs/simple.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - II
+            - III
+          lnl:
+            II:
+            - III
+            III: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
     outs:
-    - path: models/histories/simple.csv
+    - path: models/risks/simple.hdf5
       hash: md5
-      md5: c96ad6278d54694b444c58130d3994b6
-      size: 1654
+      md5: 62ed35683465a451521f86a0b6d149ce
+      size: 163600
+  prevalences:
+    cmd: "uv run python3.10 -m lyscripts compute prevalences --configs models/configs/simple.ly.yaml
+      --configs models/configs/sampling.ly.yaml --configs models/configs/scenarios.ly.yaml
+      --prevalences.file models/prevalences/simple.hdf5 --data.source data/processed/dataset.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: c7594f5e32db1539f4b496505dfef880
+      size: 278344
     - path: models/samples/simple.hdf5
       hash: md5
       md5: 2b331bee1e23dd8298d3e7252bbbace9
       size: 14083648
+    - path: uv.lock
+      hash: md5
+      md5: db577edecd3f5d1aef2c9ffb06b20bf2
+      size: 485167
+    params:
+      models/configs/sampling.ly.yaml:
+        sampling:
+          storage_file: models/samples/simple.hdf5
+          history_file: models/histories/simple.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 50
+          num_steps: 100
+          inverse_temp: 1
+        version: 1
+      models/configs/scenarios.ly.yaml:
+        modalities:
+          CT:
+            spec: 0.8
+            sens: 0.8
+        scenarios:
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                II: healthy
+                III: healthy
+          involvement:
+            ipsi:
+              III: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                II: involved
+                III: healthy
+          involvement:
+            ipsi:
+              III: involved
+        version: 1
+      models/configs/simple.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - II
+            - III
+          lnl:
+            II:
+            - III
+            III: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+    outs:
+    - path: models/prevalences/simple.hdf5
+      hash: md5
+      md5: 609d347387aa728385421ccaef38268d
+      size: 163824

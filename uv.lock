@@ -1341,7 +1341,7 @@ wheels = [
 
 [[package]]
 name = "lyscripts"
-source = { directory = "../lyscripts" }
+source = { editable = "../lyscripts" }
 dependencies = [
     { name = "corner" },
     { name = "deprecated" },
@@ -1819,7 +1819,7 @@ requires-dist = [
     { name = "loguru" },
     { name = "lydata" },
     { name = "lymph-model" },
-    { name = "lyscripts", directory = "../lyscripts" },
+    { name = "lyscripts", editable = "../lyscripts" },
     { name = "python-dotenv" },
     { name = "tqdm" },
     { name = "typer" },

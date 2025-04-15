@@ -22,12 +22,52 @@ stages:
     cmd: >
       ${cmd-prefix} python3.10 -m lyscripts sample
       --configs models/configs/simple.ly.yaml
+      --configs models/configs/max_llh.ly.yaml
+      --configs models/configs/sampling.ly.yaml
       --data.source data/processed/dataset.csv
     deps:
       - uv.lock
       - data/processed/dataset.csv
     params:
       - models/configs/simple.ly.yaml:
+      - models/configs/max_llh.ly.yaml:
+      - models/configs/sampling.ly.yaml:
     outs:
       - models/histories/simple.csv
       - models/samples/simple.hdf5
+
+  prevalences:
+    cmd: >
+      ${cmd-prefix} python3.10 -m lyscripts compute prevalences
+      --configs models/configs/simple.ly.yaml
+      --configs models/configs/sampling.ly.yaml
+      --configs models/configs/scenarios.ly.yaml
+      --prevalences.file models/prevalences/simple.hdf5
+      --data.source data/processed/dataset.csv
+    deps:
+      - uv.lock
+      - models/samples/simple.hdf5
+      - data/processed/dataset.csv
+    params:
+      - models/configs/simple.ly.yaml:
+      - models/configs/sampling.ly.yaml:
+      - models/configs/scenarios.ly.yaml:
+    outs:
+      - models/prevalences/simple.hdf5
+
+  risks:
+    cmd: >
+      ${cmd-prefix} python3.10 -m lyscripts compute risks
+      --configs models/configs/simple.ly.yaml
+      --configs models/configs/sampling.ly.yaml
+      --configs models/configs/scenarios.ly.yaml
+      --risks.file models/risks/simple.hdf5
+    deps:
+      - uv.lock
+      - models/samples/simple.hdf5
+    params:
+      - models/configs/simple.ly.yaml:
+      - models/configs/sampling.ly.yaml:
+      - models/configs/scenarios.ly.yaml:
+    outs:
+      - models/risks/simple.hdf5

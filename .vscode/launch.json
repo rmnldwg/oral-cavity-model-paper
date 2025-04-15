@@ -1,0 +1,48 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "simple prevalences",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "lyscripts",
+            "justMyCode": false,
+            "args": [
+                "compute",
+                "prevalences",
+                "--configs",
+                "models/configs/simple.ly.yaml",
+                "--configs",
+                "models/configs/sampling.ly.yaml",
+                "--configs",
+                "models/configs/scenarios.ly.yaml",
+                "--prevalences.file",
+                "models/prevalences/simple.hdf5",
+                "--data.source",
+                "data/processed/dataset.csv"
+            ]
+        },
+        {
+            "name": "simple risks",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "lyscripts",
+            "justMyCode": false,
+            "args": [
+                "compute",
+                "risks",
+                "--configs",
+                "models/configs/simple.ly.yaml",
+                "--configs",
+                "models/configs/sampling.ly.yaml",
+                "--configs",
+                "models/configs/scenarios.ly.yaml",
+                "--risks.file",
+                "models/risks/simple.hdf5"
+            ]
+        }
+    ]
+}
