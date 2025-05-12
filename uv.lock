@@ -1341,8 +1341,8 @@ wheels = [
 
 [[package]]
 name = "lyscripts"
-version = "1.0.0a7"
-source = { registry = "https://pypi.org/simple" }
+version = "1.0.0a8.dev4"
+source = { git = "https://github.com/rmnldwg/lyscripts?rev=d128af28fa8465ac8f82466dac22c5f5d2744416#d128af28fa8465ac8f82466dac22c5f5d2744416" }
 dependencies = [
     { name = "corner" },
     { name = "deprecated" },
@@ -1365,10 +1365,6 @@ dependencies = [
     { name = "tables", version = "3.10.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "tables", version = "3.10.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "xlrd" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/79/20/04ad05c9662054465659d0cada112724c21e9f1122499bb46640c2f83290/lyscripts-1.0.0a7.tar.gz", hash = "sha256:27afca26aeb1e4d27830a7743ed7cc75c69fe76a1abea83e791ed739dbaad479", size = 468370 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/d5/90/47cb79d5dc8c86e22649590d2ddeead6705b99492c1d473d511a7503e521/lyscripts-1.0.0a7-py3-none-any.whl", hash = "sha256:2df7ec047571cfd5c58d256fe8709e6e4f860a9d33fd292a0742da39cda51117", size = 56826 },
 ]
 
 [[package]]
@@ -1791,7 +1787,7 @@ requires-dist = [
     { name = "loguru" },
     { name = "lydata" },
     { name = "lymph-model" },
-    { name = "lyscripts", specifier = "==1.0.0a7" },
+    { name = "lyscripts", git = "https://github.com/rmnldwg/lyscripts?rev=d128af28fa8465ac8f82466dac22c5f5d2744416" },
     { name = "python-dotenv" },
     { name = "tqdm" },
     { name = "typer" },
